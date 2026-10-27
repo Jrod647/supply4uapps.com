@@ -1,0 +1,2982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Supply4u — Custom Mobile &amp; Web Apps by Jarrod Avery</title>
+  <meta name="description" content="Hire Jarrod Avery at Supply4u to build your custom iOS, Android, and web applications. Explore shipped production apps like SlipStash and Serenity, calculate project estimates, and get a project-based quote.">
+  <meta name="keywords" content="custom mobile app development, iOS developer, Android developer, SwiftUI, Jetpack Compose, MVP builder, web apps, Jarrod Avery, Supply4u">
+  <meta name="author" content="Jarrod Avery">
+
+  <!-- Open Graph / Meta -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.supply4uapps.com/">
+  <meta property="og:title" content="Supply4u — Custom Apps by Jarrod Avery">
+  <meta property="og:description" content="Your idea. Shipped to the App Store. Custom mobile and web app development by Jarrod Avery.">
+  <meta property="og:image" content="assets/brand/og.png">
+  <meta property="og:site_name" content="Supply4u">
+
+  <!-- Twitter Meta -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Supply4u — Custom Apps by Jarrod Avery">
+  <meta name="twitter:description" content="Your idea. Shipped to the App Store. Custom mobile and web app development by Jarrod Avery.">
+  <meta name="twitter:image" content="assets/brand/og.png">
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" href="assets/brand/supply4u-mark.png">
+  <link rel="apple-touch-icon" href="assets/brand/supply4u-mark.png">
+
+  <!-- Preload Critical Brand Assets -->
+  <link rel="preload" href="assets/brand/supply4u-mark.png" as="image">
+  <link rel="preload" href="assets/slipstash/icon.png" as="image">
+  <link rel="preload" href="assets/serenity/icon.png" as="image">
+
+  <!-- Inter & JetBrains Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================================
+       DESIGN TOKENS & ROOT VARIABLES (DARK STUDIO THEME)
+       ============================================================ */
+    :root {
+      --bg-dark: #07090E;
+      --bg-surface: #0D111A;
+      --bg-surface-elevated: #131A26;
+      --bg-card: rgba(16, 23, 38, 0.72);
+      --bg-card-hover: rgba(23, 33, 54, 0.85);
+      --bg-glass: rgba(13, 17, 26, 0.8);
+      
+      --card-border: rgba(255, 255, 255, 0.08);
+      --card-border-glow: rgba(56, 189, 248, 0.35);
+      --card-border-purple: rgba(168, 85, 247, 0.35);
+      --card-border-emerald: rgba(16, 185, 129, 0.35);
+
+      --primary: #3B82F6;
+      --primary-hover: #2563EB;
+      --primary-glow: rgba(59, 130, 246, 0.28);
+      --cyan: #38BDF8;
+      --indigo: #6366F1;
+      --purple: #A855F7;
+      --emerald: #10B981;
+      --amber: #F59E0B;
+
+      --text: #F8FAFC;
+      --text-muted: #94A3B8;
+      --text-dim: #64748B;
+      --text-inverse: #07090E;
+
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
+      --radius-full: 9999px;
+
+      --shadow-subtle: 0 4px 20px -2px rgba(0, 0, 0, 0.5);
+      --shadow-glow: 0 0 50px -10px rgba(56, 189, 248, 0.2);
+    }
+
+    /* CSS Reset */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      color-scheme: dark;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-dark);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.2s ease, opacity 0.2s ease;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    button, input, select, textarea {
+      font: inherit;
+      color: inherit;
+    }
+
+    /* Ambient Glow Backgrounds */
+    .ambient-glow {
+      position: absolute;
+      pointer-events: none;
+      z-index: 0;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.45;
+    }
+
+    .glow-1 {
+      top: -120px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 520px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.35) 0%, rgba(99, 102, 241, 0.2) 40%, transparent 70%);
+    }
+
+    .glow-2 {
+      top: 1500px;
+      right: -100px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.2) 0%, transparent 65%);
+    }
+
+    .glow-3 {
+      top: 3100px;
+      left: -150px;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(168, 85, 247, 0.22) 0%, transparent 65%);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Typography Utilities */
+    .gradient-text {
+      background: linear-gradient(135deg, #FFFFFF 20%, #38BDF8 65%, #818CF8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .gradient-text-emerald {
+      background: linear-gradient(135deg, #FFFFFF 20%, #34D399 70%, #059669 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .gradient-text-purple {
+      background: linear-gradient(135deg, #FFFFFF 20%, #C084FC 70%, #A855F7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.825rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--cyan);
+      margin-bottom: 12px;
+      padding: 4px 12px;
+      border-radius: var(--radius-full);
+      background: rgba(56, 189, 248, 0.08);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto 64px auto;
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    .section-subtitle {
+      font-size: 1.125rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Buttons & Badges */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 13px 26px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
+      color: #FFFFFF;
+      box-shadow: 0 4px 18px rgba(37, 99, 235, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(10px);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+      color: #FFFFFF;
+    }
+
+    .btn-sm {
+      padding: 8px 16px;
+      font-size: 0.85rem;
+      border-radius: var(--radius-sm);
+    }
+
+    .btn-store {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: #000000;
+      color: #FFFFFF;
+      padding: 10px 18px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      transition: all 0.2s ease;
+      text-align: left;
+    }
+
+    .btn-store:hover {
+      background: #111827;
+      border-color: rgba(56, 189, 248, 0.5);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .btn-store svg {
+      width: 26px;
+      height: 26px;
+      flex-shrink: 0;
+    }
+
+    .btn-store-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .btn-store-sub {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #94A3B8;
+    }
+
+    .btn-store-main {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #FFFFFF;
+    }
+
+    /* ============================================================
+       NAVIGATION & HEADER
+       ============================================================ */
+    header.site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      background: rgba(7, 9, 14, 0.82);
+      border-bottom: 1px solid var(--card-border);
+      padding: 16px 0;
+      transition: all 0.3s ease;
+    }
+
+    .nav-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #FFFFFF;
+    }
+
+    .brand-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(56, 189, 248, 0.2);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.925rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .nav-links a:hover {
+      color: #FFFFFF;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: #FFFFFF;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    /* ============================================================
+       HERO SECTION
+       ============================================================ */
+    section.hero {
+      padding: 90px 0 80px 0;
+      position: relative;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 56px;
+      align-items: center;
+    }
+
+    .availability-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      font-size: 0.825rem;
+      font-weight: 600;
+      color: #34D399;
+      margin-bottom: 24px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background-color: #10B981;
+      border-radius: 50%;
+      position: relative;
+    }
+
+    .status-dot::after {
+      content: '';
+      position: absolute;
+      top: -4px;
+      left: -4px;
+      width: 16px;
+      height: 16px;
+      background-color: rgba(16, 185, 129, 0.4);
+      border-radius: 50%;
+      animation: pulseGlow 2s infinite ease-out;
+    }
+
+    @keyframes pulseGlow {
+      0% { transform: scale(0.6); opacity: 0.9; }
+      100% { transform: scale(1.6); opacity: 0; }
+    }
+
+    .hero-title {
+      font-size: clamp(2.5rem, 5.2vw, 4rem);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+      margin-bottom: 24px;
+    }
+
+    .hero-description {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 36px;
+      max-width: 580px;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .hero-trust-list {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 24px;
+      padding-top: 24px;
+      border-top: 1px solid var(--card-border);
+      font-size: 0.875rem;
+      color: var(--text-dim);
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+    }
+
+    .trust-item svg {
+      color: var(--cyan);
+      flex-shrink: 0;
+    }
+
+    /* Hero Interactive Preview Card */
+    .hero-preview-stage {
+      position: relative;
+    }
+
+    .preview-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.7);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(20px);
+    }
+
+    .preview-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #38BDF8, #818CF8, #34D399);
+    }
+
+    .preview-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .preview-title {
+      font-size: 0.875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--cyan);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .preview-tabs {
+      display: flex;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 4px;
+      border-radius: var(--radius-sm);
+    }
+
+    .preview-tab-btn {
+      background: none;
+      border: none;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      color: var(--text-dim);
+      transition: all 0.2s ease;
+    }
+
+    .preview-tab-btn.active {
+      background: #2563EB;
+      color: #FFFFFF;
+    }
+
+    .dual-device-display {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .device-box {
+      background: #000000;
+      border: 2px solid rgba(255, 255, 255, 0.12);
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .device-box:hover {
+      transform: translateY(-4px);
+      border-color: var(--cyan);
+    }
+
+    .device-box img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+
+    .device-badge-overlay {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      right: 10px;
+      background: rgba(13, 17, 26, 0.92);
+      backdrop-filter: blur(8px);
+      padding: 6px 10px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.72rem;
+      font-weight: 600;
+    }
+
+    .device-badge-overlay .badge-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #34D399;
+    }
+
+    /* Floating Pill Note */
+    .floating-note {
+      position: absolute;
+      bottom: -18px;
+      right: 20px;
+      background: #1E293B;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 8px 16px;
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      color: #FFFFFF;
+    }
+
+    /* ============================================================
+       STATS & TRUST STRIP
+       ============================================================ */
+    .stats-strip {
+      padding: 40px 0;
+      border-top: 1px solid var(--card-border);
+      border-bottom: 1px solid var(--card-border);
+      background: rgba(13, 17, 26, 0.5);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    .stat-card {
+      text-align: center;
+      padding: 12px;
+    }
+
+    .stat-number {
+      font-size: 2.25rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 6px;
+      color: #FFFFFF;
+    }
+
+    .stat-label {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    /* ============================================================
+       PORTFOLIO SECTION (DUAL PRODUCTION SHOWCASE)
+       ============================================================ */
+    section.portfolio {
+      padding: 120px 0;
+    }
+
+    .app-showcase-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-xl);
+      padding: 48px;
+      margin-bottom: 56px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .app-showcase-card:hover {
+      border-color: rgba(56, 189, 248, 0.3);
+      box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.6);
+    }
+
+    .app-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .app-grid.reversed {
+      grid-template-columns: 0.9fr 1.1fr;
+    }
+
+    .app-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .app-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    }
+
+    .app-tag-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .app-name-title {
+      font-size: 1.75rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .app-category {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .app-description {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+
+    .app-features-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 12px 14px;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .feature-item svg {
+      color: var(--cyan);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .feature-item-text {
+      font-size: 0.875rem;
+    }
+
+    .feature-item-title {
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-bottom: 2px;
+    }
+
+    .feature-item-desc {
+      color: var(--text-dim);
+      font-size: 0.8rem;
+    }
+
+    .app-action-links {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* Device Preview Stages */
+    .app-mockup-frame {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      position: relative;
+    }
+
+    .phone-mockup {
+      width: 260px;
+      border-radius: 36px;
+      background: #000000;
+      border: 5px solid #1E293B;
+      box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.1);
+      overflow: hidden;
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+
+    .phone-mockup:hover {
+      transform: translateY(-6px);
+    }
+
+    .phone-mockup.offset {
+      margin-top: 40px;
+    }
+
+    .phone-mockup img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* ============================================================
+       INTERACTIVE PROJECT COST & SCOPE ESTIMATOR
+       ============================================================ */
+    section.estimator {
+      padding: 120px 0;
+      background: linear-gradient(180deg, transparent 0%, rgba(13, 17, 26, 0.8) 50%, transparent 100%);
+    }
+
+    .estimator-container {
+      background: var(--bg-surface);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-xl);
+      padding: 48px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+
+    .estimator-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 48px;
+    }
+
+    .estimator-step {
+      margin-bottom: 32px;
+    }
+
+    .step-label {
+      font-size: 0.825rem;
+      font-weight: 700;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+
+    .step-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-bottom: 16px;
+    }
+
+    .option-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+    }
+
+    .select-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+      user-select: none;
+    }
+
+    .select-card:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .select-card.selected {
+      background: rgba(59, 130, 246, 0.12);
+      border-color: var(--primary);
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.25);
+    }
+
+    .select-card input[type="radio"],
+    .select-card input[type="checkbox"] {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .card-icon {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .card-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-subtitle {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      line-height: 1.4;
+    }
+
+    .checkmark-pill {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      color: transparent;
+      transition: all 0.2s ease;
+    }
+
+    .select-card.selected .checkmark-pill {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #FFFFFF;
+    }
+
+    /* Estimator Summary Output Box */
+    .estimator-summary-box {
+      background: var(--bg-surface-elevated);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      position: sticky;
+      top: 100px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+    }
+
+    .summary-heading {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .cost-display {
+      margin-bottom: 24px;
+    }
+
+    .cost-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+    }
+
+    .cost-value {
+      font-size: 2.25rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+    }
+
+    .timeline-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--cyan);
+      margin-top: 8px;
+    }
+
+    .breakdown-list {
+      list-style: none;
+      margin-bottom: 28px;
+      font-size: 0.85rem;
+    }
+
+    .breakdown-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      color: var(--text-muted);
+    }
+
+    .breakdown-row span:last-child {
+      color: #FFFFFF;
+      font-weight: 600;
+    }
+
+    .summary-disclaimer {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      margin-top: 16px;
+      line-height: 1.4;
+      text-align: center;
+    }
+
+    /* ============================================================
+       PROCESS & MILESTONES (INTERACTIVE ROADMAP)
+       ============================================================ */
+    section.process {
+      padding: 120px 0;
+    }
+
+    .process-timeline {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      position: relative;
+    }
+
+    .process-step-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 32px 24px;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .process-step-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(56, 189, 248, 0.3);
+      box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.6);
+    }
+
+    .step-number-tag {
+      font-size: 1.75rem;
+      font-weight: 800;
+      font-family: var(--font-mono);
+      color: var(--cyan);
+      margin-bottom: 16px;
+      display: block;
+      opacity: 0.9;
+    }
+
+    .process-step-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-bottom: 12px;
+      letter-spacing: -0.01em;
+    }
+
+    .process-step-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .deliverables-box {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: var(--radius-sm);
+      padding: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .deliverables-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--cyan);
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .deliverables-items {
+      font-size: 0.8rem;
+      color: #E2E8F0;
+      line-height: 1.4;
+    }
+
+    /* ============================================================
+       SERVICES BENTO GRID
+       ============================================================ */
+    section.services {
+      padding: 100px 0;
+    }
+
+    .services-bento {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .bento-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 36px 28px;
+      position: relative;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .bento-card.featured {
+      grid-column: span 2;
+      background: radial-gradient(circle at top right, rgba(37, 99, 235, 0.12), transparent 50%), var(--bg-surface);
+      border-color: rgba(56, 189, 248, 0.25);
+    }
+
+    .bento-card:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-4px);
+    }
+
+    .bento-icon-wrapper {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      color: var(--cyan);
+    }
+
+    .bento-card-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-bottom: 12px;
+    }
+
+    .bento-card-text {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .bento-tech-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tech-pill {
+      font-size: 0.75rem;
+      font-weight: 600;
+      font-family: var(--font-mono);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      color: var(--text-muted);
+    }
+
+    /* ============================================================
+       TECH STACK & ARCHITECTURE BAR
+       ============================================================ */
+    .tech-stack-section {
+      padding: 80px 0;
+      border-top: 1px solid var(--card-border);
+      border-bottom: 1px solid var(--card-border);
+      background: rgba(13, 17, 26, 0.3);
+    }
+
+    .tech-badge-scroll {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .tech-chip {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      padding: 10px 18px;
+      border-radius: var(--radius-md);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #E2E8F0;
+      transition: border-color 0.2s ease;
+    }
+
+    .tech-chip:hover {
+      border-color: var(--cyan);
+      background: rgba(56, 189, 248, 0.05);
+    }
+
+    /* ============================================================
+       ABOUT THE DEVELOPER
+       ============================================================ */
+    section.about-dev {
+      padding: 120px 0;
+    }
+
+    .about-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-xl);
+      padding: 56px;
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .dev-profile-side {
+      text-align: center;
+    }
+
+    .dev-avatar-box {
+      width: 140px;
+      height: 140px;
+      border-radius: 36px;
+      background: linear-gradient(135deg, #1E293B, #0F172A);
+      border: 2px solid rgba(56, 189, 248, 0.3);
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6);
+      margin: 0 auto 20px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 24px;
+    }
+
+    .dev-avatar-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .dev-name {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      margin-bottom: 4px;
+    }
+
+    .dev-role {
+      font-size: 0.9rem;
+      color: var(--cyan);
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .dev-badges {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .about-text-side h3 {
+      font-size: 2rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      color: #FFFFFF;
+    }
+
+    .about-text-side p {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .about-highlights {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 28px;
+      padding-top: 24px;
+      border-top: 1px solid var(--card-border);
+    }
+
+    .highlight-point {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #FFFFFF;
+    }
+
+    .highlight-point svg {
+      color: var(--emerald);
+      flex-shrink: 0;
+    }
+
+    /* ============================================================
+       FAQ SECTION (ACCORDION)
+       ============================================================ */
+    section.faq {
+      padding: 100px 0;
+    }
+
+    .faq-list {
+      max-width: 840px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      background: var(--bg-surface);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-md);
+      margin-bottom: 16px;
+      overflow: hidden;
+      transition: border-color 0.2s ease;
+    }
+
+    .faq-item:hover {
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .faq-question {
+      width: 100%;
+      text-align: left;
+      background: none;
+      border: none;
+      padding: 24px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+
+    .faq-icon {
+      font-size: 1.25rem;
+      transition: transform 0.2s ease;
+      color: var(--cyan);
+    }
+
+    .faq-item.open .faq-icon {
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s cubic-bezier(0, 1, 0, 1), padding 0.3s ease;
+      padding: 0 24px;
+      font-size: 0.975rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .faq-item.open .faq-answer {
+      max-height: 500px;
+      padding: 0 24px 24px 24px;
+      transition: max-height 0.3s ease-in-out, padding 0.3s ease;
+    }
+
+    /* ============================================================
+       CONTACT / PROJECT INQUIRY FORM
+       ============================================================ */
+    section.contact {
+      padding: 120px 0 140px 0;
+      position: relative;
+    }
+
+    .contact-wrapper {
+      background: radial-gradient(circle at top left, rgba(59, 130, 246, 0.1), transparent 60%), var(--bg-surface);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-xl);
+      padding: 56px;
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 56px;
+    }
+
+    .contact-info-col h2 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+
+    .contact-info-col p {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+
+    .direct-email-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin-bottom: 28px;
+    }
+
+    .direct-email-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--cyan);
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+
+    .direct-email-link {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .direct-email-link:hover {
+      color: var(--cyan);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #E2E8F0;
+      margin-bottom: 8px;
+    }
+
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      background: rgba(13, 17, 26, 0.9);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      color: #FFFFFF;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+      outline: none;
+    }
+
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+      background: rgba(18, 24, 38, 1);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .form-consent {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.825rem;
+      color: var(--text-dim);
+      margin-bottom: 24px;
+    }
+
+    .form-consent input {
+      margin-top: 3px;
+    }
+
+    .form-consent a {
+      color: var(--cyan);
+      text-decoration: underline;
+    }
+
+    .form-status-msg {
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      margin-top: 16px;
+      display: none;
+    }
+
+    .form-status-msg.success {
+      display: block;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: #34D399;
+    }
+
+    /* ============================================================
+       SITE FOOTER
+       ============================================================ */
+    footer.site-footer {
+      border-top: 1px solid var(--card-border);
+      background: #04060A;
+      padding: 60px 0 40px 0;
+      color: var(--text-dim);
+      font-size: 0.875rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+
+    .footer-brand p {
+      margin-top: 12px;
+      line-height: 1.6;
+      max-width: 320px;
+      color: var(--text-muted);
+    }
+
+    .footer-col-title {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 16px;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-links a:hover {
+      color: #FFFFFF;
+    }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 32px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 0.8rem;
+    }
+
+    /* ============================================================
+       RESPONSIVE MEDIA QUERIES
+       ============================================================ */
+    @media (max-width: 1024px) {
+      .hero-grid,
+      .app-grid,
+      .app-grid.reversed,
+      .estimator-grid,
+      .about-card,
+      .contact-wrapper {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .process-timeline {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .services-bento {
+        grid-template-columns: 1fr;
+      }
+
+      .bento-card.featured {
+        grid-column: span 1;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links, .nav-actions .btn {
+        display: none;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .process-timeline {
+        grid-template-columns: 1fr;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .app-mockup-frame {
+        flex-direction: column;
+      }
+
+      .phone-mockup.offset {
+        margin-top: 0;
+      }
+
+      .estimator-container,
+      .app-showcase-card,
+      .contact-wrapper,
+      .about-card {
+        padding: 28px 20px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Glow Elements -->
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+  <div class="ambient-glow glow-3"></div>
+
+  <!-- NAVIGATION -->
+  <header class="site-header">
+    <div class="container nav-wrapper">
+      <a href="#" class="brand-link" aria-label="Supply4u Home">
+        <img src="assets/brand/supply4u-mark.png" alt="Supply4u Mark" class="brand-icon" width="40" height="40">
+        <span>Supply4u</span>
+      </a>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="#portfolio">Featured Apps</a></li>
+          <li><a href="#estimator">Cost Calculator</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#process">How We Work</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="#contact" class="btn btn-primary btn-sm">
+          <span>Start Your Project</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+        <button class="menu-toggle" id="mobileMenuBtn" aria-label="Toggle navigation menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-grid">
+          
+          <div class="hero-content">
+            <div class="availability-pill">
+              <span class="status-dot"></span>
+              <span>Available for Select Builds · Direct With Lead Developer</span>
+            </div>
+
+            <h1 class="hero-title">
+              Your Idea.<br>
+              <span class="gradient-text">Shipped to the App Store.</span>
+            </h1>
+
+            <p class="hero-description">
+              Independent custom mobile &amp; web app development by <strong>Jarrod Avery</strong>. From initial concept to Google Play &amp; Apple App Store releases — built with native craftsmanship, direct collaboration, and no agency overhead.
+            </p>
+
+            <div class="hero-cta-group">
+              <a href="#estimator" class="btn btn-primary">
+                <span>Calculate Your Project Scope</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M5 12h14"></path>
+                  <path d="m12 5 7 7-7 7"></path>
+                </svg>
+              </a>
+              <a href="#portfolio" class="btn btn-secondary">
+                <span>Explore Live Apps</span>
+              </a>
+            </div>
+
+            <div class="hero-trust-list">
+              <div class="trust-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                </svg>
+                <span>Live on Google Play &amp; App Store</span>
+              </div>
+              <div class="trust-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                </svg>
+                <span>Native Swift &amp; Kotlin Builds</span>
+              </div>
+              <div class="trust-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+                <span>100% Client Code &amp; IP Ownership</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hero Dual Device Bento Mockup -->
+          <div class="hero-preview-stage">
+            <div class="preview-card">
+              <div class="preview-header">
+                <div class="preview-title">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                    <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                  </svg>
+                  <span>Featured Shipped Works</span>
+                </div>
+                <div class="preview-tabs">
+                  <span class="preview-tab-btn active">SlipStash &amp; Serenity</span>
+                </div>
+              </div>
+
+              <div class="dual-device-display">
+                <!-- SlipStash Device -->
+                <div class="device-box">
+                  <img src="assets/slipstash/screen_dashboard.jpg" alt="SlipStash Dashboard Screenshot" loading="eager" width="768" height="1376">
+                  <div class="device-badge-overlay">
+                    <span>SlipStash</span>
+                    <span class="badge-status">● Live</span>
+                  </div>
+                </div>
+
+                <!-- Serenity Device -->
+                <div class="device-box">
+                  <img src="assets/serenity/home.png" alt="Serenity Wellness App Screenshot" loading="eager" width="430" height="932">
+                  <div class="device-badge-overlay">
+                    <span>Serenity</span>
+                    <span class="badge-status">● Live</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="floating-note">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              <span>Designed, Developed &amp; Shipped by Jarrod</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS STRIP -->
+    <div class="stats-strip">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-number gradient-text">1-on-1</div>
+            <div class="stat-label">Direct with the Engineer (No Middlemen)</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number gradient-text-emerald">100%</div>
+            <div class="stat-label">Client Code Ownership &amp; Complete IP Rights</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number gradient-text-purple">Native</div>
+            <div class="stat-label">SwiftUI &amp; Jetpack Compose (No Clunky Web Views)</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number gradient-text">4–6 Wks</div>
+            <div class="stat-label">Average MVP Sprint from Blueprint to TestFlight</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FEATURED PORTFOLIO SECTION -->
+    <section class="portfolio" id="portfolio">
+      <div class="container">
+        
+        <div class="section-header">
+          <span class="eyebrow">Real Production Applications</span>
+          <h2 class="section-title">Built with Care. <span class="gradient-text">Shipped to Real Users.</span></h2>
+          <p class="section-subtitle">
+            I don’t just build prototypes; I engineer complete, compliant, production-grade applications that pass rigorous Apple App Store and Google Play reviews.
+          </p>
+        </div>
+
+        <!-- APP 01: SLIPSTASH -->
+        <article class="app-showcase-card">
+          <div class="app-grid">
+            <div class="app-info">
+              <div class="app-meta">
+                <img src="assets/slipstash/icon.png" alt="SlipStash App Icon" class="app-icon" width="56" height="56">
+                <div class="app-tag-group">
+                  <span class="app-category">Mobile Utility · iOS &amp; Android</span>
+                  <h3 class="app-name-title">
+                    SlipStash
+                    <span style="font-size:0.75rem; background:rgba(16, 185, 129, 0.15); color:#34D399; padding:2px 8px; border-radius:999px; border:1px solid rgba(16, 185, 129, 0.3);">Google Play Live</span>
+                  </h3>
+                </div>
+              </div>
+
+              <p class="app-description">
+                <strong>Private Receipt &amp; Store Return Deadline Vault.</strong> Never lose money to expired store return deadlines or faded paper receipts. SlipStash automatically tracks return windows, warranty expirations, and generates cashier-scannable digital barcodes with 100% on-device OCR privacy.
+              </p>
+
+              <div class="app-features-grid">
+                <div class="feature-item">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                    <circle cx="12" cy="13" r="4"></circle>
+                  </svg>
+                  <div class="feature-item-text">
+                    <div class="feature-item-title">On-Device ML OCR</div>
+                    <div class="feature-item-desc">Zero cloud uploads; optical scan extracts totals, stores &amp; dates locally.</div>
+                  </div>
+                </div>
+
+                <div class="feature-item">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="16" rx="2"></rect>
+                    <line x1="7" y1="8" x2="7" y2="16"></line>
+                    <line x1="12" y1="8" x2="12" y2="16"></line>
+                    <line x1="17" y1="8" x2="17" y2="16"></line>
+                  </svg>
+                  <div class="feature-item-text">
+                    <div class="feature-item-title">Dynamic Cashier Barcodes</div>
+                    <div class="feature-item-desc">Renders scannable 1D &amp; 2D barcodes straight from the phone screen.</div>
+                  </div>
+                </div>
+
+                <div class="feature-item">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                  </svg>
+                  <div class="feature-item-text">
+                    <div class="feature-item-title">Biometric Vault</div>
+                    <div class="feature-item-desc">Face ID &amp; fingerprint encryption keep financial records secure.</div>
+                  </div>
+                </div>
+
+                <div class="feature-item">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                  </svg>
+                  <div class="feature-item-text">
+                    <div class="feature-item-title">CPA-Ready PDF Reports</div>
+                    <div class="feature-item-desc">One-tap categorized expense reports for tax write-offs and returns.</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Store Buttons for SlipStash -->
+              <div class="app-action-links">
+                <!-- Google Play Button -->
+                <a href="https://play.google.com/store/apps/details?id=com.slipstash.app" target="_blank" rel="noopener noreferrer" class="btn-store">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M3.609 1.814L13.792 12 3.61 22.186a2.404 2.404 0 0 1-.61-1.636V3.45c0-.623.224-1.205.61-1.636z" fill="#00E676"/>
+                    <path d="M14.842 13.05l2.368-2.368-11.83-6.83 9.462 9.198z" fill="#FFD54F"/>
+                    <path d="M14.842 14.948l-9.462 9.2 11.83-6.83-2.368-2.37z" fill="#FF1744"/>
+                    <path d="M16.227 13.563l3.208 1.852a1.868 1.868 0 0 0 0-3.238l-3.208 1.852z" fill="#00B0FF"/>
+                  </svg>
+                  <div class="btn-store-text">
+                    <span class="btn-store-sub">Get It On</span>
+                    <span class="btn-store-main">Google Play</span>
+                  </div>
+                </a>
+
+                <a href="https://slipstashapp.com" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                  <span>View Product Website</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                    <polyline points="7 7 17 7 17 17"></polyline>
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            <!-- Visual Mockup Showcase -->
+            <div class="app-mockup-frame">
+              <div class="phone-mockup">
+                <img src="assets/slipstash/screen_dashboard.jpg" alt="SlipStash Dashboard Interface" loading="lazy" width="768" height="1376">
+              </div>
+              <div class="phone-mockup offset">
+                <img src="assets/slipstash/screen_barcode.jpg" alt="SlipStash Barcode Display Interface" loading="lazy" width="768" height="1376">
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- APP 02: SERENITY AI WELLNESS -->
+        <article class="app-showcase-card">
+          <div class="app-grid reversed">
+            
+            <!-- Visual Mockup Showcase -->
+            <div class="app-mockup-frame">
+              <div class="phone-mockup">
+                <img src="assets/serenity/home.png" alt="Serenity Wellness App Home Interface" loading="lazy" width="430" height="932">
+              </div>
+              <div class="phone-mockup offset">
+                <img src="assets/serenity/talk.png" alt="Serenity AI Conversation Interface" loading="lazy" width="430" height="932">
+              </div>
+            </div>
+
+            <div class="app-info">
+              <div class="app-meta">
+                <img src="assets/serenity/icon.png" alt="Serenity App Icon" class="app-icon" width="56" height="56">
+                <div class="app-tag-group">
+                  <span class="app-category" style="color:#A855F7;">AI Mental Health &amp; Lifestyle Companion</span>
+                  <h3 class="app-name-title">
+                    Serenity AI
+                    <span style="font-size:0.75rem; background:rgba(168, 85, 247, 0.15); color:#C084FC; padding:2px 8px; border-radius:999px; border:1px solid rgba(168, 85, 247, 0.3);">Google Play Release</span>
+                  </h3>
+                </div>
+              </div>
+
+              <p class="app-description">
+                <strong>Mindfulness, Reflection &amp; AI-Guided Wellness.</strong> A personal growth mobile companion designed with warmth and user privacy. Includes daily mood check-ins, encrypted journal reflections, interactive companion conversations, and guided grounding routines.
+              </p>
+
+              <div class="app-features-grid">
+                <div class="feature-item">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C084FC" stroke-width="2">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                  </svg>
+                  <div class="feature-item-text">
+                    <div class="feature-item-title">Empathetic AI Companion</div>
+                    <div class="feature-item-desc">Contextual conversational AI for sounding out thoughts and emotional check-ins.</div>
+                  </div>
+                </div>
+
+                <div class="feature-item">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C084FC" stroke-width="2">
+                    <path d="M12 20h9"></path>
+                    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                  </svg>
+                  <div class="feature-item-text">
+                    <div class="feature-item-title">Private Local Journaling</div>
+                    <div class="feature-item-desc">On-device local profile scoping keeps private thoughts off third-party ad networks.</div>
+                  </div>
+                </div>
+
+                <div class="feature-item">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C084FC" stroke-width="2">
+                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                    <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                  </svg>
+                  <div class="feature-item-text">
+                    <div class="feature-item-title">Breathing &amp; Soundscapes</div>
+                    <div class="feature-item-desc">Interactive visual breathing pacers and calming soundscapes for anxiety relief.</div>
+                  </div>
+                </div>
+
+                <div class="feature-item">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C084FC" stroke-width="2">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                  </svg>
+                  <div class="feature-item-text">
+                    <div class="feature-item-title">Supabase &amp; RevenueCat</div>
+                    <div class="feature-item-desc">Secure account management with in-app purchase and subscription architecture.</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Store & Support Buttons for Serenity -->
+              <div class="app-action-links">
+                <!-- Google Play Button for Serenity -->
+                <a href="https://play.google.com/store/apps/details?id=com.supply4uapps.serenity" target="_blank" rel="noopener noreferrer" class="btn-store">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M3.609 1.814L13.792 12 3.61 22.186a2.404 2.404 0 0 1-.61-1.636V3.45c0-.623.224-1.205.61-1.636z" fill="#00E676"/>
+                    <path d="M14.842 13.05l2.368-2.368-11.83-6.83 9.462 9.198z" fill="#FFD54F"/>
+                    <path d="M14.842 14.948l-9.462 9.2 11.83-6.83-2.368-2.37z" fill="#FF1744"/>
+                    <path d="M16.227 13.563l3.208 1.852a1.868 1.868 0 0 0 0-3.238l-3.208 1.852z" fill="#00B0FF"/>
+                  </svg>
+                  <div class="btn-store-text">
+                    <span class="btn-store-sub">Get It On</span>
+                    <span class="btn-store-main">Google Play</span>
+                  </div>
+                </a>
+
+                <a href="mailto:serenity@supply4uapps.com" class="btn btn-secondary">
+                  <span>App Support &amp; Inquiries</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                    <polyline points="22,6 12,13 2,6"></polyline>
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- INTERACTIVE PROJECT SCOPE & COST ESTIMATOR -->
+    <section class="estimator" id="estimator">
+      <div class="container">
+        
+        <div class="section-header">
+          <span class="eyebrow">Instant Scope Planning</span>
+          <h2 class="section-title">Interactive <span class="gradient-text">Project Cost Calculator</span></h2>
+          <p class="section-subtitle">
+            Configure your intended app features and platform scope below to get an instant realistic timeline and ballpark investment quote.
+          </p>
+        </div>
+
+        <div class="estimator-container">
+          <div class="estimator-grid">
+            
+            <!-- Controls Form -->
+            <div class="estimator-controls">
+              
+              <!-- STEP 1: PLATFORM -->
+              <div class="estimator-step">
+                <div class="step-label">Step 01 / Target Platforms</div>
+                <h3 class="step-title">Where should your app run?</h3>
+                <div class="option-grid" id="platformOptions">
+                  
+                  <label class="select-card selected" data-value="both" data-cost="4500" data-weeks="5">
+                    <input type="radio" name="calcPlatform" value="iOS & Android (Cross-Platform / Native)" checked>
+                    <span class="card-icon">📱</span>
+                    <div class="card-title">
+                      <span>iOS &amp; Android</span>
+                      <span class="checkmark-pill">✓</span>
+                    </div>
+                    <div class="card-subtitle">Native mobile release for both App Store &amp; Google Play.</div>
+                  </label>
+
+                  <label class="select-card" data-value="ios" data-cost="3200" data-weeks="4">
+                    <input type="radio" name="calcPlatform" value="iOS Only (SwiftUI)">
+                    <span class="card-icon">🍎</span>
+                    <div class="card-title">
+                      <span>iOS (SwiftUI)</span>
+                      <span class="checkmark-pill">✓</span>
+                    </div>
+                    <div class="card-subtitle">Dedicated Apple App Store experience optimized for iPhone &amp; iPad.</div>
+                  </label>
+
+                  <label class="select-card" data-value="android" data-cost="3200" data-weeks="4">
+                    <input type="radio" name="calcPlatform" value="Android Only (Kotlin)">
+                    <span class="card-icon">🤖</span>
+                    <div class="card-title">
+                      <span>Android (Kotlin)</span>
+                      <span class="checkmark-pill">✓</span>
+                    </div>
+                    <div class="card-subtitle">Material 3 &amp; Jetpack Compose application for Google Play.</div>
+                  </label>
+
+                  <label class="select-card" data-value="web" data-cost="3000" data-weeks="3">
+                    <input type="radio" name="calcPlatform" value="Web Application (Next.js)">
+                    <span class="card-icon">💻</span>
+                    <div class="card-title">
+                      <span>Web Application</span>
+                      <span class="checkmark-pill">✓</span>
+                    </div>
+                    <div class="card-subtitle">Modern responsive web tool, dashboard, or client portal.</div>
+                  </label>
+
+                </div>
+              </div>
+
+              <!-- STEP 2: KEY CAPABILITIES -->
+              <div class="estimator-step">
+                <div class="step-label">Step 02 / Capabilities &amp; Architecture</div>
+                <h3 class="step-title">What features do you need?</h3>
+                <div class="option-grid" id="featureOptions">
+                  
+                  <label class="select-card selected" data-cost="600" data-weeks="0.5" data-name="User Accounts & Auth">
+                    <input type="checkbox" name="calcFeatures" value="User Accounts & Auth" checked>
+                    <span class="card-icon">🔐</span>
+                    <div class="card-title">
+                      <span>User Accounts</span>
+                      <span class="checkmark-pill">✓</span>
+                    </div>
+                    <div class="card-subtitle">Email, Apple, or Google sign-in with secure profiles.</div>
+                  </label>
+
+                  <label class="select-card selected" data-cost="800" data-weeks="1" data-name="AI / ML Intelligence">
+                    <input type="checkbox" name="calcFeatures" value="AI & LLM Integration" checked>
+                    <span class="card-icon">✨</span>
+                    <div class="card-title">
+                      <span>AI &amp; LLM Features</span>
+                      <span class="checkmark-pill">✓</span>
+                    </div>
+                    <div class="card-subtitle">OpenAI/Gemini integrations, on-device OCR, or smart parsing.</div>
+                  </label>
+
+                  <label class="select-card" data-cost="750" data-weeks="1" data-name="Payments & Subscriptions">
+                    <input type="checkbox" name="calcFeatures" value="In-App Purchases / Subscriptions">
+                    <span class="card-icon">💳</span>
+                    <div class="card-title">
+                      <span>In-App Purchases</span>
+                      <span class="checkmark-pill">✓</span>
+                    </div>
+                    <div class="card-subtitle">RevenueCat or Stripe subscriptions and paywalls.</div>
+                  </label>
+
+                  <label class="select-card selected" data-cost="500" data-weeks="0.5" data-name="Cloud Database Sync">
+                    <input type="checkbox" name="calcFeatures" value="Cloud Database Sync" checked>
+                    <span class="card-icon">☁️</span>
+                    <div class="card-title">
+                      <span>Cloud Sync</span>
+                      <span class="checkmark-pill">✓</span>
+                    </div>
+                    <div class="card-subtitle">Supabase/Firebase database with real-time updates.</div>
+                  </label>
+
+                  <label class="select-card" data-cost="850" data-weeks="1" data-name="Admin Portal">
+                    <input type="checkbox" name="calcFeatures" value="Admin Backoffice Dashboard">
+                    <span class="card-icon">📊</span>
+                    <div class="card-title">
+                      <span>Admin Portal</span>
+                      <span class="checkmark-pill">✓</span>
+                    </div>
+                    <div class="card-subtitle">Internal dashboard to manage users, data, and analytics.</div>
+                  </label>
+
+                  <label class="select-card" data-cost="400" data-weeks="0.5" data-name="Push Notifications">
+                    <input type="checkbox" name="calcFeatures" value="Push Notifications">
+                    <span class="card-icon">🔔</span>
+                    <div class="card-title">
+                      <span>Push Notifications</span>
+                      <span class="checkmark-pill">✓</span>
+                    </div>
+                    <div class="card-subtitle">Scheduled alerts, engagement triggers, and reminders.</div>
+                  </label>
+
+                </div>
+              </div>
+
+              <!-- STEP 3: SPRINT PACE -->
+              <div class="estimator-step">
+                <div class="step-label">Step 03 / Delivery Pace</div>
+                <h3 class="step-title">Desired development timeline</h3>
+                <div class="option-grid" id="paceOptions">
+                  
+                  <label class="select-card selected" data-multiplier="1.0" data-name="Standard MVP Sprint">
+                    <input type="radio" name="calcPace" value="Standard MVP Sprint (4-6 Weeks)" checked>
+                    <span class="card-icon">🎯</span>
+                    <div class="card-title">
+                      <span>Standard Sprint</span>
+                      <span class="checkmark-pill">✓</span>
+                    </div>
+                    <div class="card-subtitle">Measured cadence with bi-weekly milestone builds and reviews.</div>
+                  </label>
+
+                  <label class="select-card" data-multiplier="1.2" data-name="Priority Fast-Track">
+                    <input type="radio" name="calcPace" value="Priority Fast-Track (2-4 Weeks)">
+                    <span class="card-icon">⚡</span>
+                    <div class="card-title">
+                      <span>Priority Fast-Track</span>
+                      <span class="checkmark-pill">✓</span>
+                    </div>
+                    <div class="card-subtitle">Accelerated sprint to hit an imminent market deadline or investor demo.</div>
+                  </label>
+
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Estimator Output Sticky Card -->
+            <div class="estimator-summary-col">
+              <div class="estimator-summary-box">
+                <div class="summary-heading">
+                  <span>Scope Estimate</span>
+                  <span style="font-size:0.75rem; color:#34D399; font-weight:600;">● Active Calculation</span>
+                </div>
+
+                <div class="cost-display">
+                  <div class="cost-label">Ballpark Investment Range</div>
+                  <div class="cost-value" id="calcCostOutput">$6,400 – $7,800</div>
+                  <div class="timeline-badge" id="calcTimelineOutput">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                    <span>Estimated 5 – 7 Weeks to App Store</span>
+                  </div>
+                </div>
+
+                <ul class="breakdown-list" id="calcBreakdownList">
+                  <li class="breakdown-row">
+                    <span>Target Platform:</span>
+                    <span id="breakdownPlatform">iOS &amp; Android</span>
+                  </li>
+                  <li class="breakdown-row">
+                    <span>Included Features:</span>
+                    <span id="breakdownFeaturesCount">3 Selected</span>
+                  </li>
+                  <li class="breakdown-row">
+                    <span>Code Ownership:</span>
+                    <span>100% Client Rights</span>
+                  </li>
+                  <li class="breakdown-row">
+                    <span>Store Submission:</span>
+                    <span>Included</span>
+                  </li>
+                </ul>
+
+                <button type="button" class="btn btn-primary" id="prefillFormBtn" style="width:100%;">
+                  <span>Apply to Project Request</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <polyline points="19 12 12 19 5 12"></polyline>
+                  </svg>
+                </button>
+
+                <p class="summary-disclaimer">
+                  Ballpark estimate based on typical project architecture. Every app is unique — we'll agree on a fixed milestone-based quote before work begins.
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PROCESS & ROADMAP SECTION -->
+    <section class="process" id="process">
+      <div class="container">
+        
+        <div class="section-header">
+          <span class="eyebrow">Transparent Methodology</span>
+          <h2 class="section-title">From Concept to Launch. <span class="gradient-text">A Predictable Path.</span></h2>
+          <p class="section-subtitle">
+            No guessing games or endless agency status meetings. Here is the exact phased structure we use to bring your app to life.
+          </p>
+        </div>
+
+        <div class="process-timeline">
+          
+          <div class="process-step-card">
+            <span class="step-number-tag">01</span>
+            <h3 class="process-step-title">Blueprint &amp; Scope</h3>
+            <p class="process-step-desc">
+              We define your core user stories, establish must-have features vs future iterations, and document the technical architecture with a clear fixed quote.
+            </p>
+            <div class="deliverables-box">
+              <span class="deliverables-label">Deliverables</span>
+              <div class="deliverables-items">• Architecture Spec &bull; Wireframes &bull; Milestone Contract</div>
+            </div>
+          </div>
+
+          <div class="process-step-card">
+            <span class="step-number-tag">02</span>
+            <h3 class="process-step-title">UI/UX Craft &amp; Prototype</h3>
+            <p class="process-step-desc">
+              Modern, tactile interfaces designed specifically for mobile touch ergonomics, dark/light themes, and platform-native HIG / Material standards.
+            </p>
+            <div class="deliverables-box">
+              <span class="deliverables-label">Deliverables</span>
+              <div class="deliverables-items">• High-Fidelity Mockups &bull; Interactive Prototype &bull; Design Tokens</div>
+            </div>
+          </div>
+
+          <div class="process-step-card">
+            <span class="step-number-tag">03</span>
+            <h3 class="process-step-title">Native Development</h3>
+            <p class="process-step-desc">
+              Clean native code built in sprints. You receive test builds directly on your physical iPhone or Android device through TestFlight and Google Play Internal Testing.
+            </p>
+            <div class="deliverables-box">
+              <span class="deliverables-label">Deliverables</span>
+              <div class="deliverables-items">• TestFlight / Internal Builds &bull; Sprint Demos &bull; Clean Git Commits</div>
+            </div>
+          </div>
+
+          <div class="process-step-card">
+            <span class="step-number-tag">04</span>
+            <h3 class="process-step-title">Store Approval &amp; Handover</h3>
+            <p class="process-step-desc">
+              I prepare store screenshots, privacy documentation, App Store review answers, and handle Google Play / Apple review cycles until the app is fully approved.
+            </p>
+            <div class="deliverables-box">
+              <span class="deliverables-label">Deliverables</span>
+              <div class="deliverables-items">• Live Store Listings &bull; Source Code Handoff &bull; Post-Launch Warranty</div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SERVICES BENTO GRID -->
+    <section class="services" id="services">
+      <div class="container">
+        
+        <div class="section-header">
+          <span class="eyebrow">Capabilities</span>
+          <h2 class="section-title">Custom Software. <span class="gradient-text">Engineered Right.</span></h2>
+          <p class="section-subtitle">
+            Whether you are testing an early-stage concept or automating internal business workflows, here is how I can help.
+          </p>
+        </div>
+
+        <div class="services-bento">
+          
+          <div class="bento-card featured">
+            <div>
+              <div class="bento-icon-wrapper">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                  <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                </svg>
+              </div>
+              <h3 class="bento-card-title">Native Mobile Application Development</h3>
+              <p class="bento-card-text">
+                Custom iOS and Android applications designed to leverage native hardware: biometric authentication, camera OCR, local file sandboxes, push notifications, and buttery-smooth 120Hz animations.
+              </p>
+            </div>
+            <div class="bento-tech-pills">
+              <span class="tech-pill">SwiftUI</span>
+              <span class="tech-pill">Kotlin Compose</span>
+              <span class="tech-pill">Apple Vision</span>
+              <span class="tech-pill">RevenueCat</span>
+              <span class="tech-pill">Room / CoreData</span>
+            </div>
+          </div>
+
+          <div class="bento-card">
+            <div>
+              <div class="bento-icon-wrapper">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                  <polyline points="2 17 12 22 22 17"></polyline>
+                  <polyline points="2 12 12 17 22 12"></polyline>
+                </svg>
+              </div>
+              <h3 class="bento-card-title">Focused MVP Sprints</h3>
+              <p class="bento-card-text">
+                Turn your product idea into a working first release in weeks, not months. We strip away the unnecessary fluff to launch what validates your market.
+              </p>
+            </div>
+            <div class="bento-tech-pills">
+              <span class="tech-pill">Rapid Delivery</span>
+              <span class="tech-pill">TestFlight</span>
+              <span class="tech-pill">Google Internal Track</span>
+            </div>
+          </div>
+
+          <div class="bento-card">
+            <div>
+              <div class="bento-icon-wrapper">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                  <line x1="8" y1="21" x2="16" y2="21"></line>
+                  <line x1="12" y1="17" x2="12" y2="21"></line>
+                </svg>
+              </div>
+              <h3 class="bento-card-title">Modern Web Apps &amp; Portals</h3>
+              <p class="bento-card-text">
+                High-performance web apps, customer portals, and internal productivity dashboards engineered with Next.js, React, and serverless backends.
+              </p>
+            </div>
+            <div class="bento-tech-pills">
+              <span class="tech-pill">Next.js</span>
+              <span class="tech-pill">React</span>
+              <span class="tech-pill">Tailwind CSS</span>
+              <span class="tech-pill">TypeScript</span>
+            </div>
+          </div>
+
+          <div class="bento-card featured">
+            <div>
+              <div class="bento-icon-wrapper">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 14.93V17a1 1 0 0 1-2 0v-.07A7.003 7.003 0 0 1 5.07 11H5a1 1 0 0 1 0-2h.07A7.003 7.003 0 0 1 11 5.07V5a1 1 0 0 1 2 0v.07A7.003 7.003 0 0 1 18.93 11H19a1 1 0 0 1 0 2h-.07A7.003 7.003 0 0 1 13 16.93z"></path>
+                </svg>
+              </div>
+              <h3 class="bento-card-title">Privacy-Centric Architecture &amp; AI Integration</h3>
+              <p class="bento-card-text">
+                Modern users value their data. I specialize in zero-knowledge local storage, on-device OCR/ML processing, and safe, opt-in AI LLM integrations (OpenAI / Gemini / Anthropic) with strict boundary containment.
+              </p>
+            </div>
+            <div class="bento-tech-pills">
+              <span class="tech-pill">On-Device OCR</span>
+              <span class="tech-pill">Zero Cloud Tracking</span>
+              <span class="tech-pill">Gemini &amp; OpenAI API</span>
+              <span class="tech-pill">Biometrics</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TECH STACK BAR -->
+    <div class="tech-stack-section">
+      <div class="container">
+        <div style="text-align:center; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-dim); margin-bottom:24px;">
+          Production Technologies Mastered
+        </div>
+        <div class="tech-badge-scroll">
+          <div class="tech-chip"><span>🍎</span> Swift &amp; SwiftUI</div>
+          <div class="tech-chip"><span>🤖</span> Kotlin &amp; Jetpack Compose</div>
+          <div class="tech-chip"><span>⚛️</span> React &amp; Next.js</div>
+          <div class="tech-chip"><span>⚡</span> Supabase &amp; PostgreSQL</div>
+          <div class="tech-chip"><span>🔥</span> Firebase &amp; Firestore</div>
+          <div class="tech-chip"><span>💳</span> RevenueCat &amp; Stripe</div>
+          <div class="tech-chip"><span>👁️</span> Apple Vision &amp; Google ML Kit</div>
+          <div class="tech-chip"><span>🧠</span> Gemini &amp; OpenAI APIs</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABOUT THE DEVELOPER -->
+    <section class="about-dev" id="about">
+      <div class="container">
+        
+        <div class="about-card">
+          <div class="dev-profile-side">
+            <div class="dev-avatar-box">
+              <img src="assets/brand/supply4u-mark.png" alt="Jarrod Avery - Supply4u Developer" width="80" height="80">
+            </div>
+            <h3 class="dev-name">Jarrod Avery</h3>
+            <p class="dev-role">Lead Engineer &amp; Founder · Supply4u</p>
+            <div class="dev-badges">
+              <span class="tech-pill" style="color:#34D399; border-color:rgba(52, 211, 153, 0.3);">Shipped 2+ Store Apps</span>
+            </div>
+          </div>
+
+          <div class="about-text-side">
+            <span class="eyebrow">The Engineer Behind Supply4u</span>
+            <h3>Direct collaboration. Clean execution. No agency games.</h3>
+            <p>
+              When you hire Supply4u, you work directly with me—the engineer designing, typing, and shipping every line of your codebase. You won’t get bounced between account managers, junior sub-contractors, or endless bloated committees.
+            </p>
+            <p>
+              Having designed and shipped live products like <strong>SlipStash</strong> (our private receipt and return vault) and <strong>Serenity</strong> (AI wellness companion), I understand the nuances of building real software: store compliance, responsive performance, user privacy, and conversion-focused design.
+            </p>
+
+            <div class="about-highlights">
+              <div class="highlight-point">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <span>Direct Slack / Email Access</span>
+              </div>
+              <div class="highlight-point">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <span>Full Source Code Handover</span>
+              </div>
+              <div class="highlight-point">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <span>Store Submission Guarantee</span>
+              </div>
+              <div class="highlight-point">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <span>Transparent Milestone Pricing</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="faq" id="faq">
+      <div class="container">
+        
+        <div class="section-header">
+          <span class="eyebrow">Common Questions</span>
+          <h2 class="section-title">Everything You Need to Know.</h2>
+          <p class="section-subtitle">
+            Clear, honest answers to help you make an informed decision before starting your project.
+          </p>
+        </div>
+
+        <div class="faq-list">
+          
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>How much does a custom app typically cost?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              Every project is scoped individually based on features, platforms, and complexity. Focused MVP builds typically range from $3,500 to $6,500, while comprehensive multi-platform products with backends, payment tiers, and AI integrations typically range between $7,000 and $15,000. All projects have a fixed milestone-based agreement, so you never encounter surprise billing.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Who owns the app code and intellectual property?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              You do. 100%. Upon completion of each project milestone, all source code, design assets, and intellectual property belong entirely to you. You are never locked into proprietary agency platforms or recurring maintenance hostage fees.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Do you guarantee Apple App Store and Google Play approval?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              Yes. Navigating App Store Guidelines and Google Play Developer Policies is part of my core service. If Apple or Google reviewers request modifications or clarification regarding permissions, privacy policies, or in-app purchases, I address and resolve those review items until your build is live.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>What if I only have a rough idea and no design?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              That is completely fine and very common. During our initial scoping phase, we will talk through what problem your app solves, who your target users are, and outline the core features needed for version 1.0. I handle the UI/UX design, user flows, and wireframes.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Can we start with a smaller MVP first?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              In fact, I strongly recommend it. Building a focused Minimum Viable Product (MVP) gets a working app into real users' hands faster, allows you to validate market demand, and avoids wasting budget on features people may not actually use.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>What happens after launch? Do you offer ongoing maintenance?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              Every project includes a 30-day post-launch warranty period where any bug fixes or adjustments are addressed at no cost. Beyond that, I offer flexible hourly or monthly retainer arrangements for feature iterations, iOS/Android version updates, and scaling.
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CONTACT / PROJECT REQUEST SECTION -->
+    <section class="contact" id="contact">
+      <div class="container">
+        
+        <div class="contact-wrapper">
+          
+          <div class="contact-info-col">
+            <span class="eyebrow">Let’s Make It Happen</span>
+            <h2>What do you want to <span class="gradient-text">build?</span></h2>
+            <p>
+              Tell me about your idea, who it’s for, and what you’d like it to achieve. Share your timeline and target budget if you have them, and I’ll get back to you with a detailed breakdown and quote.
+            </p>
+
+            <div class="direct-email-card">
+              <div class="direct-email-label">Prefer Direct Email?</div>
+              <a href="mailto:info@supply4uapps.com" class="direct-email-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                </svg>
+                <span>info@supply4uapps.com</span>
+              </a>
+            </div>
+
+            <div style="font-size:0.85rem; color:var(--text-dim); line-height:1.6;">
+              Need support for an existing app? <br>
+              • Serenity: <a href="mailto:serenity@supply4uapps.com" style="color:var(--cyan);">serenity@supply4uapps.com</a><br>
+              • SlipStash: <a href="https://slipstashapp.com" style="color:var(--cyan);" target="_blank">slipstashapp.com</a>
+            </div>
+          </div>
+
+          <!-- Contact Form -->
+          <div class="contact-form-col">
+            <form id="projectRequestForm" action="mailto:info@supply4uapps.com" method="GET" enctype="text/plain">
+              
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="reqName">Your Name *</label>
+                  <input type="text" id="reqName" name="name" class="form-input" placeholder="e.g. Alex Morgan" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="reqEmail">Email Address *</label>
+                  <input type="email" id="reqEmail" name="email" class="form-input" placeholder="alex@company.com" required>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="reqPlatform">Project Type</label>
+                  <select id="reqPlatform" name="platform" class="form-select">
+                    <option value="iOS & Android Mobile App">Mobile App (iOS &amp; Android)</option>
+                    <option value="iOS App (SwiftUI)">iOS App (SwiftUI)</option>
+                    <option value="Android App (Kotlin)">Android App (Kotlin)</option>
+                    <option value="Web Application / Portal">Web App / Portal</option>
+                    <option value="Full Mobile + Web Suite">Full Mobile + Web Suite</option>
+                    <option value="Not Sure Yet">Not sure yet / Need guidance</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="reqBudget">Intended Budget Range</label>
+                  <select id="reqBudget" name="budget" class="form-select">
+                    <option value="$3,500 – $5,000">$3,500 – $5,000 (Focused MVP)</option>
+                    <option value="$5,000 – $8,000" selected>$5,000 – $8,000 (Standard Sprint)</option>
+                    <option value="$8,000 – $15,000+">$8,000 – $15,000+ (Full Suite)</option>
+                    <option value="Flexible / Need Assessment">Flexible / Discuss Quote</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="reqMessage">Tell Me About Your Idea *</label>
+                <textarea id="reqMessage" name="body" class="form-textarea" placeholder="What should the app do? Who is it for? Any specific features, timeline deadlines, or existing designs you have in mind?" required minlength="20"></textarea>
+              </div>
+
+              <div class="form-consent">
+                <input type="checkbox" id="reqConsent" required checked>
+                <label for="reqConsent">
+                  I understand this is a direct project inquiry to Jarrod Avery at Supply4u and agree to the <a href="privacy.html" target="_blank">privacy policy</a>.
+                </label>
+              </div>
+
+              <button type="submit" class="btn btn-primary" style="width:100%; padding:15px;">
+                <span>Send Project Request</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="22" y1="2" x2="11" y2="13"></line>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+              </button>
+
+              <div id="formSuccessMsg" class="form-status-msg success">
+                Opening your email client with your project details... You can also email <strong>info@supply4uapps.com</strong> directly!
+              </div>
+
+            </form>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#" class="brand-link" style="margin-bottom:12px;">
+            <img src="assets/brand/supply4u-mark.png" alt="Supply4u Mark" class="brand-icon" width="36" height="36">
+            <span>Supply4u</span>
+          </a>
+          <p>
+            Custom mobile and web applications engineered with care by independent developer Jarrod Avery.
+          </p>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Portfolio &amp; Apps</div>
+          <ul class="footer-links">
+            <li><a href="https://play.google.com/store/apps/details?id=com.slipstash.app" target="_blank">SlipStash on Google Play</a></li>
+            <li><a href="https://slipstashapp.com" target="_blank">SlipStash Website</a></li>
+            <li><a href="https://play.google.com/store/apps/details?id=com.supply4uapps.serenity" target="_blank">Serenity on Google Play</a></li>
+            <li><a href="mailto:serenity@supply4uapps.com">Serenity Support</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Services</div>
+          <ul class="footer-links">
+            <li><a href="#services">iOS App Development</a></li>
+            <li><a href="#services">Android App Development</a></li>
+            <li><a href="#services">Web Applications &amp; Portals</a></li>
+            <li><a href="#estimator">Cost &amp; Scope Calculator</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Direct Contact</div>
+          <ul class="footer-links">
+            <li><a href="mailto:info@supply4uapps.com">info@supply4uapps.com</a></li>
+            <li><a href="#contact">Start a Project</a></li>
+            <li><a href="privacy.html">Website Privacy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 Supply4u · Built by Jarrod Avery. All rights reserved.</div>
+        <div>Designed for performance, privacy, and craftsmanship.</div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- SCRIPT: INTERACTIVE ESTIMATOR, ACCORDION & FORM BINDING -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      
+      // FAQ Accordion
+      const faqItems = document.querySelectorAll('.faq-item');
+      faqItems.forEach(item => {
+        const btn = item.querySelector('.faq-question');
+        btn.addEventListener('click', () => {
+          const isOpen = item.classList.contains('open');
+          faqItems.forEach(i => i.classList.remove('open'));
+          if (!isOpen) {
+            item.classList.add('open');
+          }
+        });
+      });
+
+      // Mobile Menu Toggle
+      const mobileBtn = document.getElementById('mobileMenuBtn');
+      const navLinks = document.querySelector('.nav-links');
+      if (mobileBtn && navLinks) {
+        mobileBtn.addEventListener('click', () => {
+          if (navLinks.style.display === 'flex') {
+            navLinks.style.display = 'none';
+          } else {
+            navLinks.style.display = 'flex';
+            navLinks.style.flexDirection = 'column';
+            navLinks.style.position = 'absolute';
+            navLinks.style.top = '100%';
+            navLinks.style.left = '0';
+            navLinks.style.right = '0';
+            navLinks.style.background = '#0D111A';
+            navLinks.style.padding = '20px';
+            navLinks.style.borderBottom = '1px solid rgba(255,255,255,0.1)';
+          }
+        });
+      }
+
+      // ESTIMATOR LOGIC
+      const platformCards = document.querySelectorAll('#platformOptions .select-card');
+      const featureCards = document.querySelectorAll('#featureOptions .select-card');
+      const paceCards = document.querySelectorAll('#paceOptions .select-card');
+
+      const costOutput = document.getElementById('calcCostOutput');
+      const timelineOutput = document.getElementById('calcTimelineOutput');
+      const breakdownPlatform = document.getElementById('breakdownPlatform');
+      const breakdownFeaturesCount = document.getElementById('breakdownFeaturesCount');
+
+      // Platform selection
+      platformCards.forEach(card => {
+        card.addEventListener('click', function() {
+          platformCards.forEach(c => {
+            c.classList.remove('selected');
+            c.querySelector('input').checked = false;
+          });
+          this.classList.add('selected');
+          this.querySelector('input').checked = true;
+          recalculate();
+        });
+      });
+
+      // Features toggle (multi-select)
+      featureCards.forEach(card => {
+        card.addEventListener('click', function(e) {
+          const input = this.querySelector('input');
+          // If clicking label directly, toggle
+          if (e.target !== input) {
+            input.checked = !input.checked;
+          }
+          if (input.checked) {
+            this.classList.add('selected');
+          } else {
+            this.classList.remove('selected');
+          }
+          recalculate();
+        });
+      });
+
+      // Pace selection
+      paceCards.forEach(card => {
+        card.addEventListener('click', function() {
+          paceCards.forEach(c => {
+            c.classList.remove('selected');
+            c.querySelector('input').checked = false;
+          });
+          this.classList.add('selected');
+          this.querySelector('input').checked = true;
+          recalculate();
+        });
+      });
+
+      function recalculate() {
+        let baseCost = 0;
+        let baseWeeks = 0;
+        let platformName = "iOS & Android";
+
+        const selectedPlatform = document.querySelector('#platformOptions .select-card.selected');
+        if (selectedPlatform) {
+          baseCost = parseInt(selectedPlatform.dataset.cost) || 4500;
+          baseWeeks = parseFloat(selectedPlatform.dataset.weeks) || 5;
+          platformName = selectedPlatform.querySelector('.card-title span').textContent;
+        }
+
+        let featuresCost = 0;
+        let featuresWeeks = 0;
+        let selectedFeatures = [];
+
+        document.querySelectorAll('#featureOptions .select-card.selected').forEach(card => {
+          featuresCost += parseInt(card.dataset.cost) || 0;
+          featuresWeeks += parseFloat(card.dataset.weeks) || 0;
+          selectedFeatures.push(card.dataset.name || "Feature");
+        });
+
+        let multiplier = 1.0;
+        const selectedPace = document.querySelector('#paceOptions .select-card.selected');
+        if (selectedPace) {
+          multiplier = parseFloat(selectedPace.dataset.multiplier) || 1.0;
+        }
+
+        const totalCostMid = Math.round((baseCost + featuresCost) * multiplier);
+        const lowCost = Math.round(totalCostMid * 0.9 / 100) * 100;
+        const highCost = Math.round(totalCostMid * 1.15 / 100) * 100;
+
+        let totalWeeks = Math.ceil(baseWeeks + featuresWeeks);
+        if (multiplier > 1.0) {
+          totalWeeks = Math.max(3, Math.ceil(totalWeeks * 0.7)); // fast track reduces calendar duration
+        }
+
+        costOutput.textContent = `$${lowCost.toLocaleString()} – $${highCost.toLocaleString()}`;
+        timelineOutput.innerHTML = `
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          <span>Estimated ${totalWeeks} – ${totalWeeks + 2} Weeks to App Store</span>
+        `;
+
+        breakdownPlatform.textContent = platformName;
+        breakdownFeaturesCount.textContent = `${selectedFeatures.length} Selected`;
+
+        return {
+          platformName,
+          lowCost,
+          highCost,
+          totalWeeks,
+          selectedFeatures
+        };
+      }
+
+      // Prefill Form Button
+      const prefillBtn = document.getElementById('prefillFormBtn');
+      if (prefillBtn) {
+        prefillBtn.addEventListener('click', () => {
+          const calc = recalculate();
+          
+          // Select closest platform in contact form
+          const platformSelect = document.getElementById('reqPlatform');
+          if (platformSelect) {
+            if (calc.platformName.includes('iOS & Android')) platformSelect.value = 'iOS & Android Mobile App';
+            else if (calc.platformName.includes('iOS')) platformSelect.value = 'iOS App (SwiftUI)';
+            else if (calc.platformName.includes('Android')) platformSelect.value = 'Android App (Kotlin)';
+            else if (calc.platformName.includes('Web')) platformSelect.value = 'Web Application / Portal';
+          }
+
+          // Select closest budget
+          const budgetSelect = document.getElementById('reqBudget');
+          if (budgetSelect) {
+            if (calc.lowCost < 5000) budgetSelect.value = '$3,500 – $5,000';
+            else if (calc.lowCost <= 8000) budgetSelect.value = '$5,000 – $8,000';
+            else budgetSelect.value = '$8,000 – $15,000+';
+          }
+
+          // Prefill message
+          const msgArea = document.getElementById('reqMessage');
+          if (msgArea) {
+            msgArea.value = `Hi Jarrod,\n\nI calculated a project scope on your website:\n- Target: ${calc.platformName}\n- Selected Capabilities: ${calc.selectedFeatures.join(', ')}\n- Target Timeline: ~${calc.totalWeeks} weeks\n- Ballpark Estimate: $${calc.lowCost.toLocaleString()} – $${calc.highCost.toLocaleString()}\n\nHere are additional details about what I want to build:\n`;
+          }
+
+          // Scroll smoothly to contact form
+          document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+          msgArea.focus();
+        });
+      }
+
+      // Form Handling
+      const projectForm = document.getElementById('projectRequestForm');
+      if (projectForm) {
+        projectForm.addEventListener('submit', function(e) {
+          const name = document.getElementById('reqName').value;
+          const email = document.getElementById('reqEmail').value;
+          const platform = document.getElementById('reqPlatform').value;
+          const budget = document.getElementById('reqBudget').value;
+          const message = document.getElementById('reqMessage').value;
+
+          const subject = encodeURIComponent(`Project Inquiry from ${name} - ${platform}`);
+          const body = encodeURIComponent(
+            `Name: ${name}\n` +
+            `Email: ${email}\n` +
+            `Platform: ${platform}\n` +
+            `Budget: ${budget}\n\n` +
+            `Project Details:\n${message}`
+          );
+
+          // Update action to mailto with complete prefilled body
+          this.action = `mailto:info@supply4uapps.com?subject=${subject}&body=${body}`;
+          
+          const successMsg = document.getElementById('formSuccessMsg');
+          if (successMsg) {
+            successMsg.style.display = 'block';
+          }
+        });
+      }
+
+      // Initial calculation
+      recalculate();
+
+    });
+  </script>
+</body>
+</html>
